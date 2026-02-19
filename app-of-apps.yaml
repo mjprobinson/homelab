@@ -13,4 +13,7 @@ spec:
     name: in-cluster
     namespace: argocd
   syncPolicy:
-    automated: null
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
