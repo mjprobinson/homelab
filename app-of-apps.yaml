@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: apps
   destination:
-    server: in-cluster
+    name: in-cluster
     namespace: argocd
   syncPolicy:
     automated: null
