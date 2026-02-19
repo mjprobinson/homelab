@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: traefik
-  namespace: argocd
+  namespace: network
 spec:
   project: default
   sources:
@@ -17,7 +17,7 @@ spec:
       ref: values
   destination:
     name: in-cluster
-    namespace: argocd
+    namespace: network
   syncPolicy:
     automated:
       prune: true
