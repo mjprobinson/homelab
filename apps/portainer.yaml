@@ -9,6 +9,7 @@ spec:
   sources:
     - repoURL: https://portainer.github.io/k8s/
       chart: portainer
+      targetRevision: 2.33.7
       helm:
         valueFiles:
           - $values/charts/cert-manager/values.yaml
