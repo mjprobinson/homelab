@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: portainer-ingressroute-cert
+  namespace: network
+spec:
+  secretName: portainer-cert-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - portainer.maplehillhomestead.com
+
