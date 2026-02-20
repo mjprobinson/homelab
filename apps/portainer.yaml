@@ -1,0 +1,29 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portainer
+  namespace: portainer
+spec:
+  project: homelab
+  sources:
+    - repoURL: https://portainer.github.io/k8s/
+      chart: portainer
+      helm:
+        valueFiles:
+          - $values/charts/cert-manager/values.yaml
+    - repoURL: https://github.com/mjprobinson/homelab
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://github.com/mjprobinson/homelab
+      path: manifests/portainer
+      targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: portainer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
