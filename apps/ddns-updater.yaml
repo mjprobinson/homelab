@@ -1,24 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
-  namespace: traefik
+  name: ddns-updater
+  namespace: ddns-updater
 spec:
   project: homelab
   sources:
-    - repoURL: https://traefik.github.io/charts
-      chart: traefik
-      targetRevision: 39.1.0-ea.2
-      helm:
-        valueFiles:
-          - $values/charts/traefik/values.yaml
     - repoURL: https://github.com/mjprobinson/homelab
+      path: manifests/ddns-updater
       targetRevision: HEAD
-      ref: values
   destination:
     name: in-cluster
-    namespace: traefik
+    namespace: ddns-updater
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
