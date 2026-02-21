@@ -1,5 +1,8 @@
 deployment:
   replicas: 2
+service:
+  spec:
+    loadBalancerIP: 192.168.1.121
 ports:
   web:
     http:
