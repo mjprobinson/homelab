@@ -8,6 +8,6 @@ ingress:
         - path: /
           port: "9000"
   tls:
-    - secretName: portainer-cert-name
+    - secretName: portainer-cert-secret
       hosts:
         - "portainer.maplehillhomestead.com"
