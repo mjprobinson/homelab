@@ -9,5 +9,4 @@ spec:
     name: cloudflare-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - portainer.maplehillhomestead.com
-
+    - portainer2.maplehillhomestead.com

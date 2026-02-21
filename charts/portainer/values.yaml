@@ -3,11 +3,11 @@ service:
 ingress:
   enabled: true
   hosts:
-    - host: "portainer.maplehillhomestead.com"
+    - host: "portainer2.maplehillhomestead.com"
       paths:
         - path: /
           port: "9000"
   tls:
     - secretName: portainer-cert-secret
       hosts:
-        - "portainer.maplehillhomestead.com"
+        - "portainer2.maplehillhomestead.com"
