@@ -1,5 +1,5 @@
-logLevel:
-  6
+global:
+  logLevel: 6
 crds:
   enabled: true
 extraArgs:
