@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongo
+  namespace: mongo
+spec:
+  project: homelab
+  sources:
+    - repoURL: https://github.com/mjprobinson/homelab
+      path: manifests/mongodb
+      targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: mongo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
