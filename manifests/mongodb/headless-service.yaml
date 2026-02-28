@@ -4,7 +4,7 @@ metadata:
   name: mongo-headless
   namespace: mongo
   labels:
-    name: mongo
+    name: mongo-headless
 spec:
   ports:
     - port: 27017
