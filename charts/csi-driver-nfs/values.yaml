@@ -2,24 +2,22 @@ controller:
   replicas: 2
 externalSnapshotter:
   enabled: true
-storageClass:
-  create: true
-  storageClasses:
-    - name: truenas-nfs-delete
-      annotations:
-        storageclass.kubernetes.io/is-default-class: "true"
-      parameters:
-        server: 192.168.1.80
-        share: /mnt/storage0/storage_main/kubelab
-      reclaimPolicy: Delete
-      volumeBindingMode: Immediate
-      mountOptions:
-        - nfsvers=4.1
-    - name: truenas-nfs-retain
-      parameters:
-        server: 192.168.1.80
-        share: /mnt/storage0/storage_main/kubelab
-      reclaimPolicy: Retain
-      volumeBindingMode: Immediate
-      mountOptions:
-        - nfsvers=4.1
+storageClasses:
+  - name: truenas-nfs-delete
+    annotations:
+      storageclass.kubernetes.io/is-default-class: "true"
+    parameters:
+      server: 192.168.1.80
+      share: /mnt/storage0/storage_main/kubelab
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+    mountOptions:
+      - nfsvers=4.1
+  - name: truenas-nfs-retain
+    parameters:
+      server: 192.168.1.80
+      share: /mnt/storage0/storage_main/kubelab
+    reclaimPolicy: Retain
+    volumeBindingMode: Immediate
+    mountOptions:
+      - nfsvers=4.1
