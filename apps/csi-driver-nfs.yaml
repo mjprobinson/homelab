@@ -17,6 +17,7 @@ spec:
       ref: values
   destination:
     name: in-cluster
+    namespace: csi-driver-nfs
   syncPolicy:
     automated:
       prune: true
