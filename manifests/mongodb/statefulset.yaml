@@ -19,7 +19,7 @@ spec:
           command: ["bash", "-c"]
           args:
             - if [[ $(hostname) != "mongo-0" ]]; then echo "Not primary" && exit 0; fi;
-            - mongosh --eval "db.adminCommand('ping')"
+            - sleep(20);
             - mongosh
             - --eval
             - >-
