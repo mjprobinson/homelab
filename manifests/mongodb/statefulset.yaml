@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
+  namespace: mongo
 spec:
   serviceName: mongo-headless
   replicas: 2
@@ -13,29 +14,6 @@ spec:
       labels:
         role: mongo
     spec:
-      initContainers:
-        - name: init-replicaset
-          image: mongo
-          command: ["bash", "-c"]
-          args:
-            - if [[ "$POD_NAME" != "mongo-0" ]]; then echo "Not primary" && exit 0; fi;
-            - sleep(20);
-            - mongosh
-            - --eval
-            - >-
-              rs.initiate(
-                { _id: "rs0",
-                  members: [
-                    {_id: 0, host: "mongo-0.mongo-headless.mongo.svc.cluster.local:27017", priority: 2},
-                    {_id: 1, host: "mongo-1.mongo-headless.mongo.svc.cluster.local:27017", priority: 1},
-                  ]
-                }
-              )
-          env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
@@ -51,6 +29,8 @@ spec:
             - name: mongo-persistent-storage
               mountPath: /data/db
               subPath: mongo
+            - name: init-script
+              mountPath: /scripts
           livenessProbe:
             exec:
               command:
@@ -73,6 +53,10 @@ spec:
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 6
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/scripts/init-replicaset.sh"]
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
@@ -84,6 +68,15 @@ spec:
                 secretKeyRef:
                   name: mongo-creds
                   key: password
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+      volumes:
+        - name: init-script
+          configMap:
+            name: init-replicaset-configmap
+            defaultMode: 0500
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-replicaset-configmap
+  namespace: mongo
+data:
+  init-replicaset.sh: |
+    #! /bin/bash
+
+    if [[ "$POD_NAME" != "mongo-0" ]]; then 
+      echo "Not primary" >> /var/log/post-start-script
+      exit 0
+    fi
+    sleep 60
+    mongosh --eval << EOF
+      rs.initiate({ \
+        _id: "rs0", members: [ \
+            {_id: 0, host: "mongo-0.mongo-headless.mongo.svc.cluster.local:27017", priority: 2}, \
+            {_id: 1, host: "mongo-1.mongo-headless.mongo.svc.cluster.local:27017", priority: 1}, \
+        ] \
+      })
+    EOF
+    mongosh --eval "rs.conf()" >> /var/log/post-start-script
