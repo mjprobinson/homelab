@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: unifi-network-application
+  namespace: unifi-network-application
+spec:
+  project: homelab
+  sources:
+    - repoURL: https://github.com/mjprobinson/homelab
+      path: manifests/unifi
+      targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: unifi-network-application
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

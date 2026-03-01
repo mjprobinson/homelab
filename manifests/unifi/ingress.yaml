@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: default
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: unifi-network-application
+spec:
+  rules:
+    - host: router.maplehillhomestead.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: unifi-network-application
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - router.maplehillhomestead.com
+      secretName: unifi-network-application-cert-secret
