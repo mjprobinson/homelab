@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: default
+    cert-manager.io/cluster-issuer: cloudflare-clusterissuer
     ingress.kubernetes.io/force-ssl-redirect: "true"
   name: unifi-network-application
 spec:
