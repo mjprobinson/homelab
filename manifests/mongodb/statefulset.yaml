@@ -1,3 +1,6 @@
+# Note: commented out sections forego using replication set with mongo
+# If you want to change this, know that the INITDB_ROOT env args won't work
+# and an admin user will need to be created manually
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -18,10 +21,11 @@ spec:
       containers:
         - name: mongo
           image: mongo:8.2.6-rc0
-          args:
-            - --replSet
-            - rs0
-            - --bind_ip_all
+          # command:
+          #   - mongod
+          #   - --replSet
+          #   - rs0
+          #   - --bind_ip_all
           ports:
             - containerPort: 27017
           volumeMounts:
