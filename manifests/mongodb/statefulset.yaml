@@ -18,8 +18,7 @@ spec:
       containers:
         - name: mongo
           image: mongo:8.2.6-rc0
-          command:
-            - mongod
+          args:
             - --replSet
             - rs0
             - --bind_ip_all
