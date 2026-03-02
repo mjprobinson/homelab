@@ -5,7 +5,7 @@ metadata:
   namespace: mongo
 spec:
   serviceName: mongo-headless
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       role: mongo
@@ -53,10 +53,10 @@ spec:
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 6
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/scripts/init-replicaset.sh"]
+          # lifecycle:
+          #   postStart:
+          #     exec:
+          #       command: ["/scripts/init-replicaset.sh"]
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
