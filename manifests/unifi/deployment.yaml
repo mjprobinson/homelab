@@ -20,7 +20,8 @@ spec:
           image: lscr.io/linuxserver/unifi-network-application:latest
           lifecycle:
             postStart:
-              command: ["bash", "-c", "sed -i 's/~MONGO_USER~/\"$MONGO_USER\"/g' /defaults/system.properties"]
+              exec:
+                command: ["bash", "-c", "sed -i 's/~MONGO_USER~/\"$MONGO_USER\"/g' /defaults/system.properties"]
           env:
             - name: PUID
               value: "1000"
