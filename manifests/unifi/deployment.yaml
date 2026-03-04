@@ -15,6 +15,10 @@ spec:
       labels:
         app: unifi-network-application
     spec:
+      initContainers:
+        - name: system-probs
+          image: lscr.io/linuxserver/unifi-network-application:latest
+          command: ["sed", "-i", '"s/~_USER~/$MONGO_USER"', "/defaults/system.properties"]
       containers:
         - name: unifi-network-application
           image: lscr.io/linuxserver/unifi-network-application:latest
