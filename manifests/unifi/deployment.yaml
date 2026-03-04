@@ -18,7 +18,7 @@ spec:
       initContainers:
         - name: system-props
           image: lscr.io/linuxserver/unifi-network-application:latest
-          command: ["bash", "-c", "sed -i 's/~MONGO_USER~/\"$MONGO_USER\"' /defaults/system.properties"]
+          command: ["bash", "-c", "sed -i 's/~MONGO_USER~/\"$MONGO_USER\"/g' /defaults/system.properties"]
       containers:
         - name: unifi-network-application
           image: lscr.io/linuxserver/unifi-network-application:latest
