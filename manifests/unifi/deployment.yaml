@@ -21,7 +21,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["bash", "-c", 'sed -i "s/~MONGO_USER~/${MONGO_USER}/g" /defaults/system.properties']
+                command: ["bash", "-c", 'sed -i "s/~MONGO_USER~/$MONGO_USER/g"', "/defaults/system.properties"]
           env:
             - name: PUID
               value: "1000"
