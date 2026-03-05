@@ -18,10 +18,6 @@ spec:
       containers:
         - name: unifi-network-application
           image: lscr.io/linuxserver/unifi-network-application:latest
-          # lifecycle:
-          #   postStart:
-          #     exec:
-          #       command: ["bash", "-c",  'echo "s/~MONGO_USER~/$MONGO_USER/g"']
           env:
             - name: PUID
               value: "1000"
