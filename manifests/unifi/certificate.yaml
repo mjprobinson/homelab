@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: unifi-network-application-ingressroute-cert
+  namespace: unifi-network-application
+spec:
+  secretName: unifi-network-application-cert-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - unifi.maplehillhomestead.com
+
