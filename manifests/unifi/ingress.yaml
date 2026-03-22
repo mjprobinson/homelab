@@ -24,6 +24,31 @@ spec:
     secretName: unifi-network-application-cert-secret
 ---
 apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unifi-network-application
+  namespace: unifi-network-application
+  annotations:
+    cert-manager.io/cluster-issuer: cloudflare-clusterissuer
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`device.unifi.maplehillhomestead.com`)
+      kind: Rule
+      middlewares:
+        - name: unifi-network-application-https-redirect
+          namespace: unifi-network-application
+      services:
+        - name: unifi-network-application
+          port: 8080
+          serversTransport: unifi-network-application-transport
+  tls:
+    domains:
+      - main: unifi.maplehillhomestead.com
+    secretName: unifi-network-application-cert-secret
+apiVersion: traefik.io/v1alpha1
+---
 kind: Middleware
 metadata:
   name: unifi-network-application-https-redirect
